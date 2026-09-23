@@ -1,53 +1,23 @@
+# Target path in your fork: static-analysis.datadog.yml (repo root) — REPLACES the shipped file.
+#
+# Upstream pins 49 rulesets across 10 languages. You are keeping python (+ java/pom.xml),
+# so trim to match: faster scans, fewer findings in the shared org, and a demo that
+# cannot change shape because Datadog shipped a new JavaScript rule the week of your talk.
+#
+# If you decide to drop java/ entirely, remove the three java-* lines too.
+
 schema-version: v1
 rulesets:
-  - apex-code-style
-  - apex-security
-  - csharp-best-practices
-  - csharp-code-style
-  - csharp-inclusive
-  - csharp-security
-  - docker-best-practices
-  - github-actions
-  - go-best-practices
-  - go-inclusive
-  - go-security
-  - java-best-practices
-  - java-code-style
-  - java-security
-  - javascript-best-practices
-  - javascript-browser-security
-  - javascript-code-style
-  - javascript-common-security
-  - javascript-express
-  - javascript-inclusive
-  - javascript-node-security
-  - jsx-react
-  - kotlin-best-practices
-  - kotlin-code-style
-  - kotlin-inclusive
-  - kotlin-security
-  - php-best-practices
-  - php-security
+  - python-security
   - python-best-practices
   - python-code-style
   - python-django
   - python-flask
   - python-inclusive
-  - python-pandas
-  - python-security
-  - rails-best-practices
-  - ruby-best-practices
-  - ruby-code-style
-  - ruby-security
-  - swift-code-style
-  - swift-inclusive
-  - swift-security
-  - tsx-react
-  - typescript-best-practices
-  - typescript-browser-security
-  - typescript-code-style
-  - typescript-common-security
-  - typescript-express
-  - typescript-inclusive
-  - typescript-node-security
-ignorePaths: []
+  - java-security
+  - java-best-practices
+  - java-code-style
+  - docker-best-practices
+  - github-actions
+ignorePaths:
+  - .github/**
