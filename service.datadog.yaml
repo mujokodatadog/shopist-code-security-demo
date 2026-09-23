@@ -1,16 +1,31 @@
+# Target path in your fork: service.datadog.yaml (repo root) — REPLACES the shipped file.
+#
+# The upstream version claims name: shopist-code-security-demo with env:demo and
+# team:security. team:security is the same tag auth-dotnet carries in dpndemo, so
+# leaving it merges your findings into Shopist's security team's view. Replace it.
+
 apiVersion: v3
 kind: service
 metadata:
-  name: shopist-code-security-demo
-  displayName: Shopist Code Security Demo
+  name: pidi-payments-api
+  displayName: PIDI Demo — Payments API
+  description: PIDI Digital Talent Expo 2026 DevSecOps demo. Owner Mujoko (PSA). Safe to remove after Oct 2026.
   tags:
-    - env:demo
-    - team:security
+    - env:pidi-demo
+    - team:psa-mujoko
+    - demo:pidi-2026
+  links:
+    - name: Fork
+      type: repo
+      url: https://github.com/mujokodatadog/shopist-code-security-demo
 spec:
   lifecycle: development
   tier: Tier 3
 datadog:
   codeLocations:
-    - repositoryURL: https://github.com/datadog/shopist-code-security-demo.git
+    - repositoryURL: https://github.com/mujokodatadog/shopist-code-security-demo.git
       paths:
         - "**"
+# If findings later show up unattributed or attached to the wrong service, the
+# repositoryURL string is the first thing to check — it must match the repo exactly,
+# including the .git suffix.
