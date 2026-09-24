@@ -90,31 +90,31 @@ jobs:
 
           datadog-ci sarif upload /tmp/datadog-iac-scanner-result.sarif
 
-  # security-gate:
-  #   runs-on: ubuntu-latest
-  #   name: Security gate
-  #   needs: [sast-and-secrets, sca, iac]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  security-gate:
+    runs-on: ubuntu-latest
+    name: Security gate
+    needs: [sast-and-secrets, sca, iac]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Block the build on leaked credentials
-  #       run: |
-  #         echo "Checking for credential patterns in source..."
-  #         if grep -rEIl \
-  #             -e 'sk_live_[0-9a-zA-Z]{8}' \
-  #             -e 'AKIA[0-9A-Z]{16}' \
-  #             -e '-----BEGIN RSA PRIVATE KEY-----' \
-  #             . --exclude-dir=.git --exclude-dir=.github ; then
-  #           echo "::error::SECURITY GATE FAILED - credentials detected in source. Blocking."
-  #           exit 1
-  #         fi
-  #         echo "Security gate passed - no credential patterns found."
+      - name: Block the build on leaked credentials
+        run: |
+          echo "Checking for credential patterns in source..."
+          if grep -rEIl \
+              -e 'sk_live_[0-9a-zA-Z]{8}' \
+              -e 'AKIA[0-9A-Z]{16}' \
+              -e '-----BEGIN RSA PRIVATE KEY-----' \
+              . --exclude-dir=.git --exclude-dir=.github ; then
+            echo "::error::SECURITY GATE FAILED - credentials detected in source. Blocking."
+            exit 1
+          fi
+          echo "Security gate passed - no credential patterns found."
 
   report-to-datadog:
     runs-on: ubuntu-latest
     name: Report pipeline to Datadog
-    needs: [sast-and-secrets, sca, iac]
+    needs: [sast-and-secrets, sca, iac, security-gate]
     if: always()
     steps:
       - name: Send CI pipeline event
