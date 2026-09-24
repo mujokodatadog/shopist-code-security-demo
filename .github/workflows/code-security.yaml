@@ -114,7 +114,7 @@ jobs:
   report-to-datadog:
     runs-on: ubuntu-latest
     name: Report pipeline to Datadog
-    needs: [sast-and-secrets, sca, iac, security-gate]
+    needs: [sast-and-secrets, sca, iac]
     if: always()
     steps:
       - name: Send CI pipeline event
